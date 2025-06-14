@@ -43,10 +43,15 @@ function NavBar(){
             </ul>
           </li>
           <li className="nav-item">
-                <NavLink to="/reducer" className="nav-link">
+                <NavLink to="/without-reducer" className="nav-link">
+                  Without Reducer
+                </NavLink>
+          </li>
+          <li className="nav-item">
+                <NavLink to="/with-reducer" className="nav-link">
                   Using Reducer
                 </NavLink>
-            </li>
+          </li>
         </ul>
 
 

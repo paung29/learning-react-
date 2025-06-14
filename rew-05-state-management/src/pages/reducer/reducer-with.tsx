@@ -1,27 +1,16 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import type { Member } from "./domain"
 import Card from "../../ui/card/card-component"
 import MemberEditForm from "./member-edit"
 import MemberList from "./member-list"
+import { memberReducer } from "./member-reducer"
 
-export default function ReducerHome(){
+export default function WithReducer(){
 
     const [id, setId] = useState(0)
-    const [members, setMembers] = useState<Member[]>([])
+    const [members, dispatch] = useReducer(memberReducer , [])
     const [target, setTarget] = useState<Member | undefined>()
     
-    function addMember(member : Member) {
-        setMembers([...members.map(a => ({...a})) , member])
-    }
-
-    function updateMember(member : Member){
-        const index = members.findIndex(a => a.id == member.id)
-        setMembers([...members.splice(0, index).map(a => ({...a})), {...member}, ...members.splice(index)])
-    }
-
-    function deleteMember(id : number) {
-        setMembers([...members.filter(a => a.id != id).map(a => ({...a}))])
-    }
 
     function editMember(id : number) {
         const member = members.find(a => a.id == id)
@@ -37,9 +26,9 @@ export default function ReducerHome(){
     function saveMember(member : Member){
         if(member.id == 0){
             setId(id + 1)
-            addMember({...member, id : id+1})
+            dispatch({type : 'create' , member : {...member, id : id + 1}})
         }else {
-            updateMember(member)
+           dispatch({type : 'update', member})
         }
 
         setTarget(undefined)
@@ -49,7 +38,7 @@ export default function ReducerHome(){
     return (
         <>
             <div className="d-flex">
-                <h3>Using Reducer</h3>
+                <h3>With Reducer</h3>
             </div>
 
             <div className="row">
@@ -61,7 +50,7 @@ export default function ReducerHome(){
 
                 <div className="col">
                     <Card>
-                        <MemberList members={members} editMember={editMember} deleteMember={deleteMember}/>
+                        <MemberList members={members} editMember={editMember} deleteMember={id => dispatch({type : 'delete', id : id})}/>
                     </Card>
                 </div>
             </div>

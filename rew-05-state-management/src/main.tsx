@@ -5,7 +5,11 @@ import App from './App'
 import Home from './pages/home'
 import DeeplyNested from './pages/structure/deeply-nested-state'
 import FlatStructure from './pages/structure/flat-structure-state'
-import ReducerHome from './pages/reducer/reducer-home'
+import WithoutReducer from './pages/reducer/reducer-without'
+import WithReducer from './pages/reducer/reducer-with'
+
+
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +19,8 @@ createRoot(document.getElementById('root')!).render(
           <Route index element={<Home/>} />
           <Route path='/structure/deeply-nested' element={<DeeplyNested/>} />
           <Route path='/structure/flat' element={<FlatStructure/>} />
-          <Route path='/reducer' element={<ReducerHome/>} />
+          <Route path='/without-reducer' element={<WithoutReducer/>} />
+          <Route path='/with-reducer' element={<WithReducer/>} />
         </Route>
       </Routes>
     </BrowserRouter>
