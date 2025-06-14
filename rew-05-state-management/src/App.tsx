@@ -42,6 +42,11 @@ function NavBar(){
               </li>
             </ul>
           </li>
+          <li className="nav-item">
+                <NavLink to="/reducer" className="nav-link">
+                  Using Reducer
+                </NavLink>
+            </li>
         </ul>
 
 
