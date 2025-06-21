@@ -1,18 +1,27 @@
-import type { Member } from "./member-domain"
+import { useEditMemberSetter } from "../../context/states/edit-member-context"
+import { useMemberDispatcher, useReducerMembers } from "../../context/states/member-reducer-context"
+import type { Member } from "../../pages/reducer/member-domain"
+import Card from "../card/card-component"
 
+export default function MemberList() {
+    
+    const editMember = useEditMemberSetter()
+    const members:Member[] = useReducerMembers()
+    const memberDispatcher = useMemberDispatcher()
 
-export default function MemberList({members, editMember, deleteMember}
-     : {
-        members : Member[],
-        editMember : (memberId : number) => void,
-        deleteMember : (memberId : number) => void
-    }){
+    function deleteMember(id:number) {
+        memberDispatcher({
+            type : 'delete',
+            id : id
+        })
+    }
+    
     return (
-        <>
+        <Card>
             <h4>Member List</h4>
 
             {members.length == 0 ? 
-                <div>There is no Member</div> :
+                <div>There is no member</div> : 
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -33,23 +42,23 @@ export default function MemberList({members, editMember, deleteMember}
                                 <td>
                                     <a href="#" className="icon-link d-inline-block me-3" onClick={e => {
                                         e.preventDefault()
-                                        editMember(member.id)
+                                        editMember({...member})
                                     }}>
                                         <i className="bi-pencil"></i>
-                                     </a>
-                                     <a href="#" className="icon-link d-inline-block " onClick={e => {
+                                    </a>
+                                    <a href="#" className="icon-link d-inline-block" onClick={e => {
                                         e.preventDefault()
                                         deleteMember(member.id)
                                     }}>
                                         <i className="bi-trash"></i>
-                                     </a>
-                                        
+                                    </a>
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             }
-        </>
+        </Card>
     )
 }
+

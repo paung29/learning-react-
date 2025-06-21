@@ -1,4 +1,5 @@
-import type { Member } from "./domain"
+import type { Member } from "./member-domain"
+
 
 export type MemberAction = {
     type : 'create' | 'update' | 'delete'
@@ -10,9 +11,9 @@ export function memberReducer(state : Member[] , action : MemberAction){
 
     switch(action.type){
         case 'create' : 
-        return action.member ? [...state, action.member] : [...state]
+            return action.member ? [...state, action.member] : [...state]
         case 'delete' :
-        return action.id ? [...state.filter(a => a.id !== action.id)] : [...state]
+            return action.id ? [...state.filter(a => a.id !== action.id)] : [...state]
         case 'update' :
             if(action.member){
                 const index = state.findIndex(a => a.id == action.member?.id)

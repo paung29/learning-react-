@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import FormGroup from "../../ui/form/form-group";
-import type { Member } from "./domain";
+
+import { useEffect } from "react";
+import type { Member } from "./member-domain";
 
 export default function MemberEditForm ({member, saveMember, clearForm} : {member ?: Member, saveMember:(member : Member) => void, clearForm : VoidFunction}){
 
@@ -8,13 +10,13 @@ export default function MemberEditForm ({member, saveMember, clearForm} : {membe
     const {
         register,
         handleSubmit,
+        reset,
         formState : {errors}
-    } = useForm<Member>({values : {
-        id : member?.id || 0 ,
-        name : member?.name || "" ,
-        phone : member?.phone || "",
-        email : member?.email || ""
-    }})
+    } = useForm<Member>({values : member})
+
+    useEffect(() => {
+        reset(member)
+    },[member, reset])
 
 
     return(
@@ -37,9 +39,10 @@ export default function MemberEditForm ({member, saveMember, clearForm} : {membe
                     {errors.email && <span className="text-secondary">Please Enter Email</span>}
                 </FormGroup>
 
-                <button className="btn btn-primary">
-                    Save Member
-                </button>
+                <div>
+                    <button className="btn btn-primary me-2">Save Member </button>
+                    <button type="button" className="btn btn-info" onClick={clearForm}>Clear Form</button>
+                </div>
 
             </form>
         </section>

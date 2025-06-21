@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom"
+import DropdownMenu, {type DropdownMenuModel} from "./ui/menu/dropdown-menu.tsx";
 
 
 
@@ -23,40 +24,42 @@ function NavBar(){
           <i className="bi-house"></i> State Management
         </NavLink>
 
-        <ul className="navbar-nav">
-          <li className="nav-item dropdown">
-            <a href="#" className="nav-link dropdown-toogle"  data-bs-toggle="dropdown">
-              State Structure
-            </a>
-
-            <ul className="dropdown-menu">
-              <li>
-                <NavLink to="/structure/deeply-nested" className="dropdown-item">
-                  <i className="bi-bezier2"></i> Nested State
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/structure/flat" className="dropdown-item">
-                  <i className="bi-bezier"></i> Flat State
-                </NavLink>
-              </li>
-            </ul>
-          </li>
-          <li className="nav-item">
-                <NavLink to="/without-reducer" className="nav-link">
-                  Without Reducer
-                </NavLink>
-          </li>
-          <li className="nav-item">
-                <NavLink to="/with-reducer" className="nav-link">
-                  Using Reducer
-                </NavLink>
-          </li>
+        <ul className="navbar-nav" >
+            <DropdownMenu model={STATE_STRUCTURE_MENU} />
+            <DropdownMenu model={REDUCER_MENU} />
+            <DropdownMenu model={Context_Menu} />
         </ul>
 
 
       </div>
-
     </nav>
   )
+}
+
+const STATE_STRUCTURE_MENU:DropdownMenuModel = {
+    title: "State Structure",
+    items: [
+        {name : "Nested Structure", link : "/structure/deeply-nested"},
+        {name : "Flat Structure", link : "/structure/flat"},
+    ]
+}
+
+const REDUCER_MENU :DropdownMenuModel = {
+    title: "Reducer",
+    items: [
+        {name : "Without Reducer", link : "/without-reducer"},
+        {name : "Using Reducer", link : "/with-reducer"},
+        {name : "Reducer with Immer", link : "/reducer-immer"},
+    ]
+}
+
+
+const Context_Menu : DropdownMenuModel = {
+    title : "Context",
+    items : [
+        {name : "Sample1", link : "/context/sample1"},
+        {name : "Sample2", link : "/context/sample2"},
+        {name : "Sample3", link : "/context/sample3"},
+        {name : "Sample4", link : "/context/sample4"}
+    ]
 }

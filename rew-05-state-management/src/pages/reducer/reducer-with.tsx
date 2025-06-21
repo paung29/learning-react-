@@ -1,15 +1,17 @@
 import { useReducer, useState } from "react"
-import type { Member } from "./domain"
+
 import Card from "../../ui/card/card-component"
 import MemberEditForm from "./member-edit"
 import MemberList from "./member-list"
 import { memberReducer } from "./member-reducer"
+import type { Member } from "./member-domain"
+import { Default_Member } from "./domain"
 
 export default function WithReducer(){
 
     const [id, setId] = useState(0)
     const [members, dispatch] = useReducer(memberReducer , [])
-    const [target, setTarget] = useState<Member | undefined>()
+    const [target, setTarget] = useState<Member>(Default_Member)
     
 
     function editMember(id : number) {
@@ -20,7 +22,7 @@ export default function WithReducer(){
     }
 
     function clearForm(){
-        setTarget(undefined)
+        setTarget({...Default_Member})
     }
 
     function saveMember(member : Member){
@@ -31,7 +33,7 @@ export default function WithReducer(){
            dispatch({type : 'update', member})
         }
 
-        setTarget(undefined)
+        setTarget({...Default_Member})
     }
 
 
