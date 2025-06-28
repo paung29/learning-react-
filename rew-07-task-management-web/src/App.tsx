@@ -1,9 +1,13 @@
-import { Link, NavLink } from "react-router"
+import { Link, NavLink, Outlet } from "react-router"
 
 export default function App(){
   return (
     <>
       <NavBar/>
+
+      <main className="container mt-4">
+        <Outlet/>
+      </main>
     </>
   )
 }
@@ -13,7 +17,7 @@ function NavBar(){
     <nav className="navbar navbar-dark bg-black navbar-expand">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <i className="bi-house"></i>Task Manager
+          <i className="bi-house"></i> Task Manager
         </Link>
 
         <ul className="navbar-nav">
