@@ -2,8 +2,20 @@ import { Link } from "react-router";
 import { FormGroup } from "../../ui/form-group";
 import Page from "../../ui/page";
 import Pagination from "../../ui/pagination";
+import { useForm } from "react-hook-form";
+import type { MemberSearch } from "../../model/input/member-search";
+import { useState } from "react";
+import type { MemberSearchResult } from "../../model/output/member-list-item";
 
 export default function MemberList(){
+
+    const {register, handleSubmit} = useForm<MemberSearch>()
+    const [result, setResult] = useState<MemberSearchResult | undefined>(undefined)
+
+    function search(form : MemberSearch){
+        const searchResult = searchMember
+    }
+
     return(
         <>
          <Page title="Member Management" icon="bi-people">

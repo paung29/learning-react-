@@ -1,4 +1,11 @@
-export default function Pagination(){
+import type { Pager } from "../model/output/_common";
+
+export default function Pagination({pager} : {pager ?: Pager}){
+
+    if(!pager){
+        return <></>
+    }
+
     return(
         <nav className="row">
             <div className="col-auto">
