@@ -1,6 +1,6 @@
 export type MemberEditForm = {
     name : string
-    positon : string
+    position : string
     phone : string 
     email : string
     entryAt : string

@@ -1,10 +1,10 @@
-import { Links } from "react-router";
 import type { MemberSearch } from "../input/member-search";
-import type { MemberListItem } from "../output/member-list-item";
+import type { MemberListItem, MemberSearchResult } from "../output/member-list-item";
 import { DUMMY_PAGE } from "../output/_common";
+import type { MemberEditForm } from "../input/member-edit-form";
 
 
-export async function searchMember(form: MemberSearch) {
+export async function searchMember(form: MemberSearch) : Promise<MemberSearchResult> {
     console.log(form)
     return{
         list : DUMMY_MEMBERS,
@@ -12,8 +12,30 @@ export async function searchMember(form: MemberSearch) {
     }
 }
 
-export async function findMemberEditForm(id:String) {
-    
+export async function findMemberById(id:number) {
+    console.log(`Find Member Id : ${id}`)
+    return DUMMY_MEMBERS.find(a => a.id == id)
+}
+
+export async function findMemberEditForm(id : string) : Promise<MemberEditForm>{
+    console.log(`Member Id : ${id}`)
+    return{
+        name: "Mike",
+        position: "Programmer",
+        phone: "0971817171",
+        email: "mike@gmail.com",
+        entryAt: "2025-06-20"
+    }
+}
+
+export async function updateMember(id:string, form: MemberEditForm): Promise<number> {
+    console.log({id : id, ...form})
+    return 1
+}
+
+export async function createMember(form:MemberEditForm) : Promise<number> {
+    console.log(form)
+    return 1
 }
 
 

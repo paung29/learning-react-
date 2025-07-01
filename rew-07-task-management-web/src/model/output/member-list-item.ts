@@ -16,5 +16,5 @@ export interface MemberListItem {
 export type MemberSearchResult = {
     list : MemberListItem[]
 } & {
-    page : Pager
+    pager : Pager
 }
