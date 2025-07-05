@@ -2,6 +2,7 @@ import type { MemberSearch } from "../input/member-search";
 import type { MemberListItem, MemberSearchResult } from "../output/member-list-item";
 import { DUMMY_PAGE } from "../output/_common";
 import type { MemberEditForm } from "../input/member-edit-form";
+import type { MemberDetails } from "../output/member-details";
 
 
 export async function searchMember(form: MemberSearch) : Promise<MemberSearchResult> {
@@ -12,9 +13,27 @@ export async function searchMember(form: MemberSearch) : Promise<MemberSearchRes
     }
 }
 
-export async function findMemberById(id:number) {
-    console.log(`Find Member Id : ${id}`)
-    return DUMMY_MEMBERS.find(a => a.id == id)
+export async function findMemberById(id:number) : Promise<MemberDetails> {
+    
+    return {
+        id : id,
+        name : "Mike",
+        position: "Programmer",
+        phone: "0971817171",
+        email: "mike@gmail.com",
+        entryAt: "2025-06-20",
+        projects : [
+            {
+                id : 1,
+                name: "POS Development",
+                createAt: "2025-04-01",
+                startAt: "2025-05-01",
+                mileStone: "2025-09-30",
+                status: "On Schedule",
+                tasks: 5
+            }
+        ]
+    }
 }
 
 export async function findMemberEditForm(id : string) : Promise<MemberEditForm>{

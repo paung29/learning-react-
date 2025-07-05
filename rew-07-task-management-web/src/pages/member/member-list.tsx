@@ -8,7 +8,7 @@ import { useState } from "react";
 import type { MemberListItem, MemberSearchResult } from "../../model/output/member-list-item";
 import { searchMember } from "../../model/client/member-client";
 
-export default function MemberList(){
+export default function MemberListComponent(){
 
     const {register, handleSubmit} = useForm<MemberSearch>()
     const [result, setResult] = useState<MemberSearchResult | undefined>(undefined)
@@ -48,7 +48,7 @@ export default function MemberList(){
                         <i className="bi-search"></i> Search
                     </button>
 
-                    <Link to="" type="button" className="btn btn-outline-dark">
+                    <Link to="/member/edit" type="button" className="btn btn-outline-dark">
                         <i className="bi-plus"></i>Add New Member
                     </Link>
                 </div>
@@ -72,10 +72,11 @@ function MemberTable({result} : {result : MemberSearchResult}){
             <table className="table table-bordered table-striped table-hover mt-3">
                 <thead>
                     <tr>
+                        <th>ID</th>
+                        <th>Name</th>
                         <th>Position</th>
                         <th>Entry At</th>
                         <th className="text-end">Projects</th>
-                        <th className="text-end">Tasks</th>
                         <th className="text-end">TODO</th>
                         <th className="text-end">Behind</th>
                         <th className="text-end">Complete</th>
@@ -117,7 +118,6 @@ function MemberRow({member} : {member : MemberListItem}){
                     e.preventDefault()
                     showDetails(1)
                 }} className="icon-link">
-                    <i className="bi-send"></i>
                     <i className="bi-arrow-right"></i>
                 </a>
             </td>

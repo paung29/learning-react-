@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import { createMember, findMemberEditForm, updateMember } from "../../model/client/member-client"
 import { FormGroup } from "../../ui/form-group"
 
-export default function MemberEdit(){
+export default function MemberEditComponent(){
 
     const {register, handleSubmit, reset} = useForm<MemberEditForm>()
 
@@ -35,9 +35,6 @@ export default function MemberEdit(){
 
     return(
         <>
-            <Page title="Member Edit" icon="bi-pencil">
-                <div></div>
-            </Page>
             <Page title={queryParams.get('id') ? 'Edit Member' : 'Add New Member'} icon="bi-pencil">
                 <form onSubmit={handleSubmit(saveMember)}>
                     <div className="row mb-3">
