@@ -7,6 +7,7 @@ import type { MemberSearch } from "../../model/input/member-search";
 import { useState } from "react";
 import type { MemberListItem, MemberSearchResult } from "../../model/output/member-list-item";
 import { searchMember } from "../../model/client/member-client";
+import NoData from "../../ui/no-data";
 
 export default function MemberListComponent(){
 
@@ -49,13 +50,13 @@ export default function MemberListComponent(){
                     </button>
 
                     <Link to="/member/edit" type="button" className="btn btn-outline-dark">
-                        <i className="bi-plus"></i>Add New Member
+                        <i className="bi-plus-lg"></i> Create Member
                     </Link>
                 </div>
 
-                {result ? 
-                <MemberTable result={result} /> : <></>
-                }
+                <section>
+                    <MemberSearchResult result={result}/>
+                </section>
             </form>
 
             <Pagination />
@@ -64,7 +65,12 @@ export default function MemberListComponent(){
     )
 }
 
-function MemberTable({result} : {result : MemberSearchResult}){
+function MemberSearchResult({result} : {result ?: MemberSearchResult}){
+
+    if(!result){
+        return <NoData dataName="member" />
+    }
+
     const {list, pager} = result
 
     return(
