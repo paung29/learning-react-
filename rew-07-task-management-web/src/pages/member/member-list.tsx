@@ -54,7 +54,7 @@ export default function MemberListComponent(){
                     </Link>
                 </div>
 
-                <section>
+                <section className="mt-4">
                     <MemberSearchResult result={result}/>
                 </section>
             </form>
