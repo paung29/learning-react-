@@ -10,5 +10,5 @@ export function FormGroup({label, className, children} : FormGroupProps){
 type FormGroupProps = {
     label : string
     className ?: string
-    children : React.ReactNode
+    children ?: React.ReactNode
 }
