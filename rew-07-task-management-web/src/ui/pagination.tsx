@@ -1,8 +1,6 @@
-import { useSearchResultPager } from "../model/context/search-result-context";
+import type { Pager } from "../model/output/_common";
 
-export default function Pagination(){
-
-    const pager = useSearchResultPager()
+export default function Pagination({pager} : {pager ?: Pager}){
 
     if(!pager){
         return <></>
