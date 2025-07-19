@@ -3,17 +3,21 @@ import { useParams } from "react-router"
 import type { CategorySearch } from "../../../model/input/category-search"
 import { useEffect, useRef, useState } from "react"
 import type { CategoryListItem } from "../../../model/output/category-list-item"
-import { useModalStateContext } from "../../../model/context/modal-state-context"
+import { ModalStateContext, useModalStateContext } from "../../../model/context/modal-state-context"
 import { searchCategory } from "../../../model/client/category-client"
 import NoData from "../../../ui/no-data"
 import { FormGroup } from "../../../ui/form-group"
 import type { CategoryForm } from "../../../model/input/category-form"
 import ModalDialog from "../../../ui/modal-dialog"
 import ErrorMessage from "../../../ui/error-message"
+import ModalStateContextProvider from "../../../model/provider/modal-state-context-provider"
 
 export default function ProjectCateogryList(){
     return(
-        <></>
+        <ModalStateContextProvider>
+            <CategoryList />
+            <CategoryEditDialog />
+        </ModalStateContextProvider>
     )
 }
 
