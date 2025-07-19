@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router'
-import ProjectList from './pages/project/project-list.tsx'
 import ProjectEdit from './pages/project/project-edit.tsx'
 import ProjectDetails from './pages/project/details/_layout.tsx'
 import ProjectOverview from './pages/project/details/project-overview.tsx'
@@ -16,6 +15,7 @@ import MemberDetailsComponent from './pages/member/member-details.tsx'
 import ProjectMemberList from './pages/project/details/member-list.tsx'
 import ProjectCateogryList from './pages/project/details/category-list.tsx'
 import ProjectTaskDetails from './pages/project/details/task-details.tsx'
+import ProjectTaskList from './pages/project/details/task-list.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,7 +29,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='overview' element={<ProjectOverview/>}/>
             <Route path='category' element={<ProjectCateogryList/>}/>
             <Route path='member' element={<ProjectMemberList/>}/>
-            <Route path='task' element={<ProjectList/>}/>
+            <Route path='task' element={<ProjectTaskList/>}/>
             <Route path='task/edit' element={<ProjectTaskEdit/>}/>
             <Route path='task/:taskId' element={<ProjectTaskDetails/>}/>
           </Route>

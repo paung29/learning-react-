@@ -33,3 +33,4 @@ export async function createTask(form:TaskForm):Promise<ModificationResult> {
 export async function updateTask(id: unknown, form:TaskForm):Promise<ModificationResult> {
     console.log(form)
     return {id : id}
+}
