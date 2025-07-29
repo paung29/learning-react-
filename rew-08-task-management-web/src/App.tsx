@@ -1,27 +1,28 @@
-import { AccordionHeader } from "@radix-ui/react-accordion";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./components/ui/accordion";
+import { Link, Outlet } from "react-router"
 
 export default function App(){
   return(
-    <main className="mt-8 mx-16">
-      
-      <h1 className="text-4xl">Moe Shar</h1>
+    <>
+      <NavigationBar/>
 
+      <main className="my-4 mx-16" >
+        <Outlet/>
+      </main>
+    </>
+  )
+}
 
-      <Accordion type="single" collapsible defaultValue="acc-1">
-        {Array.from({length : 4}).map((_, index) => 
-          <AccordionItem key={index} value={`acc-${index + 1}`}>
-            <AccordionTrigger>
-              <AccordionHeader>{`Accordion ${index +1}`}</AccordionHeader>
-            </AccordionTrigger>
+function NavigationBar() {
+  return(
+    <nav className="px-16 flex justify-between items-center w-full bg-teal-700 text-white">
+      <div>
+       <Link to={`/`}>Task Management</Link>
+      </div>
 
-            <AccordionContent>
-              {`Content of Accordion ${index + 1}`}
-            </AccordionContent>
-          </AccordionItem>
-        )}
-      </Accordion>
-
-    </main>
+      <div>
+        <Link className="inline-block px-4 py-4 hover:bg-teal-400" to={`/project`}>Projects</Link>
+        <Link className="inline-block px-4 py-4 hover:bg-teal-400" to={`/task`}>Tasks </Link>
+      </div>
+    </nav>
   )
 }
