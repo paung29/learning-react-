@@ -12,7 +12,6 @@ import { useNavigate } from "react-router";
 
 export default function ProjectEdit(){
 
-
     const {handleSubmit, register, formState : {errors}} = useForm<ProjectForm>()
     const navigate = useNavigate()
 
@@ -20,7 +19,6 @@ export default function ProjectEdit(){
         await createProject(form)
         navigate('/project')
     }
-
 
     return (
         <Page title="Project Edit" icon={<Pencil/>}>
