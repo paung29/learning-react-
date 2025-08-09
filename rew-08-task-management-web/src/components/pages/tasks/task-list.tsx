@@ -25,6 +25,8 @@ export default function TaskList(){
     return (
        <>
             <SearchForm search={search}/>
+
+            <ResultTable list={list}/>
        </>
     )
 }
