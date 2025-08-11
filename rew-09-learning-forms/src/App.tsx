@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Calendar, CheckCircle, CheckSquare, File, Files, Group, Image, ListCheck, PenBox, Settings, type LucideProps } from "lucide-react"
+import type React from "react"
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+export default function App(){
+  return(
+    <></>
   )
 }
 
-export default App
+type MenuItem = {
+  title : string
+  icon ?: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>
+  url : string
+}
+
+type MenuGroup = {
+  label : string
+  items : MenuItem []
+}
+
+const MENU: MenuGroup[] = [
+  {
+    label : "Form with UI Component",
+    items : [
+      {title : "Inputs", url : "", icon : PenBox},
+      {title : "Check Box", url : "", icon : CheckSquare},
+      {title : "Radio Group", url : "", icon : CheckCircle},
+      {title : "Calendar", url : "", icon : Calendar},
+      {title : "Selects", url : "", icon : ListCheck}
+    ]
+  },
+  {
+    label : "Using Files",
+    items : [
+      {title : "Text File", url : "", icon : File},
+      {title : "Single Image File", url : "", icon : Image},
+      {title : "Multiple Image Files", url : "", icon : Files},
+    ]
+  },
+  {
+    label : "Nested Forms",
+    items : [
+      {title : "Form with Items", url : "", icon : Group},
+      {title : "Dynamic Form Group", url : "", icon : Settings}
+    ]
+  }
+]
+
+function AppSideBar() {
+  return(
+    <></>
+  )
+}
