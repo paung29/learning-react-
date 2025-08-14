@@ -1,111 +1,38 @@
-import { Calendar, CheckCircle, CheckSquare, ChevronDown, File, Files, Group, House, Image, ListCheck, PenBox, Settings, type LucideProps } from "lucide-react"
-import type React from "react"
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "./components/ui/sidebar"
-import { Link, Outlet } from "react-router"
+import { SidebarProvider } from "./components/ui/sidebar"
+import { Outlet } from "react-router"
 import { useState } from "react"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./components/ui/collapsible"
+import { AppTitleContext } from "./lib/context/app-title-context"
+import AppSideBar from "./components/app/app-sidebar"
+import { FormResultContext } from "./lib/context/form-result-context"
+import AppFormResult from "./components/app/app-form-result"
+import AppTitle from "./components/app/app-title"
 
 export default function App(){
-  return(
-    <SidebarProvider>
-      <AppSideBar />
-        <div>
-          <SidebarTrigger></SidebarTrigger>
 
-          <main>
-            <Outlet/>
-          </main>
-        </div>
-    </SidebarProvider>
-  )
-}
-
-type MenuItem = {
-  title : string
-  icon ?: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>
-  url : string
-}
-
-type MenuGroup = {
-  label : string
-  items : MenuItem []
-}
-
-const MENU: MenuGroup[] = [
-  {
-    label : "Form with UI Component",
-    items : [
-      {title : "Inputs", url : "", icon : PenBox},
-      {title : "Check Box", url : "", icon : CheckSquare},
-      {title : "Radio Group", url : "", icon : CheckCircle},
-      {title : "Calendar", url : "", icon : Calendar},
-      {title : "Selects", url : "", icon : ListCheck}
-    ]
-  },
-  {
-    label : "Using Files",
-    items : [
-      {title : "Text File", url : "", icon : File},
-      {title : "Single Image File", url : "", icon : Image},
-      {title : "Multiple Image Files", url : "", icon : Files},
-    ]
-  },
-  {
-    label : "Nested Forms",
-    items : [
-      {title : "Form with Items", url : "", icon : Group},
-      {title : "Dynamic Form Group", url : "", icon : Settings}
-    ]
-  }
-]
-
-function AppSideBar() {
-
-  const [selected, setSelected] = useState(0)
+  const [title, setTitle] = useState("Learning Form")
+  const [formResult, setFormResult] = useState<string>()
 
   return(
-    <Sidebar>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link to={``}><House/> Using Forms</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-
-      <SidebarContent>
-        {MENU.map((group, groupIndex)=> 
-          <Collapsible key={`group-${groupIndex + 1}`} open={selected == groupIndex} className="group/collapsible">
-            <SidebarGroup>
-              <SidebarGroupLabel onClick={() => setSelected(groupIndex)} asChild>
-                <CollapsibleTrigger>
-                  {group.label}
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"/>
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {group.items.map((item, itemIndex) =>
-                      <SidebarMenuItem key={`item-${groupIndex +1}-${itemIndex +1}`}>
-                        <SidebarMenuButton asChild>
-                          <Link to={item.url} >
-                            {item.icon && <item.icon/>}
-                            <span>{item.title}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem> 
-                    )}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </SidebarGroup>
-          </Collapsible>
-        )}
-      </SidebarContent>
-    </Sidebar>
+    <AppTitleContext.Provider value={{title : title, setTitle : setTitle}}>
+      <SidebarProvider>
+        <AppSideBar />
+          <div className="py-2 pe-2 w-full">
+            <main className="border w-full h-full shadow rounded-md">
+             <AppTitle />
+             <FormResultContext.Provider value={{result : formResult, setResult : setFormResult}} >
+                <div className="flex px-6 gap-8">
+                  <div className="flex-1">
+                    <h3 className="text-lg mb-3">Form</h3>
+                    <Outlet />
+                  </div>
+                  <div className="flex-1">
+                    <AppFormResult />
+                  </div>
+                </div>
+             </FormResultContext.Provider>
+            </main>
+          </div>
+      </SidebarProvider>
+    </AppTitleContext.Provider>
   )
 }
