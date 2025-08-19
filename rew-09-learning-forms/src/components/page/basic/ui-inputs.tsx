@@ -2,16 +2,25 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFormResult } from "@/lib/context/form-result-context"
+
+import { useEffect } from "react"
+import CustomInput from "@/components/custom/custom-input"
+import FormActions from "@/components/app/form-action"
 import { Form } from "@/components/ui/form"
-import CustomFormInput from "@/components/custom/custom-form-input"
-import { Button } from "@/components/ui/button"
-import { Save, Trash2 } from "lucide-react"
 
 const InputFormSchema = z.object({
-    text : z.string().nonempty(),
-    password : z.string().nonempty(),
-    email : z.string().nonempty(),
-    phone : z.string().nonempty()
+    text : z.string()
+            .nonempty("Please enter text input"),
+    password : z.string()
+                .nonempty("Please enter password.")
+                .min(6, "Password must be 6 to 8 characters.")
+                .max(8, "Password must be 6 to 8 characters."),
+    email : z.string()
+             .nonempty("Please enter email.")
+             .regex(z.regexes.email, "Invalid email format."),
+    phone : z.string()
+             .nonempty("Please enter phone number.")
+             .regex(z.regexes.number, "Phone number must be digits.")
 })
 
 type InputFormType = z.infer<typeof InputFormSchema>
@@ -19,9 +28,20 @@ type InputFormType = z.infer<typeof InputFormSchema>
 
 export default function UiInputs() {
 
-    const form = useForm<InputFormType>({resolver : zodResolver(InputFormSchema)})
-
     const {setResult} = useFormResult()
+
+    useEffect(() => setResult(), [setResult])
+
+    const form = useForm<InputFormType>({
+        resolver : zodResolver(InputFormSchema),
+        defaultValues : {
+            text: "",
+            password: "",
+            email : "",
+            phone : ""
+        }
+    })
+
 
     const onSave = (form : InputFormType) => {
         setResult(JSON.stringify(form, null, 2))
@@ -36,20 +56,12 @@ export default function UiInputs() {
 
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSave)}>
-                <CustomFormInput control={form.control} name="text" label="Text Input" className="mb-3"/>
-                <CustomFormInput control={form.control} name="password" type="password" label="Password" className="mb-3"/>
-                <CustomFormInput control={form.control} name="email" type="email" label="Email Input" className="mb-3"/>
-                <CustomFormInput control={form.control} name="phone" type="tel" label="Phone Input" className="mb-3"/>
+                <CustomInput control={form.control} path="text" label="Text Input" className="mb-3"/>
+                <CustomInput control={form.control} path="password" type="password" label="Password" className="mb-3"/>
+                <CustomInput control={form.control} path="email" type="email" label="Email Input" className="mb-3"/>
+                <CustomInput control={form.control} path="phone" type="tel" label="Phone Input" className="mb-3"/>
 
-                <div>
-                    <Button type="button" onClick={clear} variant={"outline"}>
-                        <Trash2 /> Clear
-                    </Button>
-
-                    <Button type="submit" className="ms-1">
-                        <Save /> Save
-                    </Button>
-                </div>
+                <FormActions clear={clear}/>
             </form>
         </Form>
     )

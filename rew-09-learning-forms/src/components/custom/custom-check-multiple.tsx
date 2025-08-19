@@ -45,11 +45,12 @@ export default function CustomCheckMultiple<T extends FieldValues>({
                                 <Checkbox 
                                     checked={isChecked(option.id, field.value)}
                                     onCheckedChange={checked => checked ?
-                                        field.onChange([...field.value], option.id) :
+                                        field.onChange([...field.value, option.id]) :
                                         field.onChange(filtered(option.id, field.value))
                                      }
                                 />
                             </FormControl>
+                            <FormLabel>{option.value}</FormLabel>
                         </FormItem>
                     }
                     />
