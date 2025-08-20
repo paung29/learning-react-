@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle, CheckSquare, ChevronDown, File, Files, Group, House, Image, ListCheck, PenBox, Settings } from "lucide-react"
+import { Calendar, CheckCircle, CheckSquare, ChevronDown, File, Files, Flag, Group, House, Image, ListCheck, PenBox, Settings } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "react-router"
 import type { MenuGroup } from "@/lib/type"
@@ -65,8 +65,9 @@ const MENU: MenuGroup[] = [
         {title : "Inputs", url : "/basic/inputs", icon : PenBox},
         {title : "Check Box", url : "basic/checks", icon : CheckSquare},
         {title : "Radio Group", url : "basic/radio", icon : CheckCircle},
-        {title : "Calendar", url : "", icon : Calendar},
-        {title : "Selects", url : "", icon : ListCheck}
+        {title : "Calendar", url : "/basic/date-picker", icon : Calendar},
+        {title : "Selects", url : "/basic/select", icon : ListCheck},
+        {title : "Using all", url : "/basic/all", icon : Flag}
       ]
     },
     {
