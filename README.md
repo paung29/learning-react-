@@ -59,11 +59,7 @@ It focuses on modern React development with TypeScript, forms, routing, UI libra
 
 ### 🎨 UI Libraries
 
-- ✅ **Material UI (MUI)**  
-  Use MUI components for consistent design and theming.
-
-- ✅ **Joy UI**  
-  A lightweight UI library with clean style props from the MUI team.
+- Ant-Design
 
 - ✅ **Shadcn UI**  
   Build flexible, accessible components with Tailwind and Radix.
