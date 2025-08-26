@@ -1,5 +1,5 @@
+import { Button } from "antd";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +9,11 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+    return (
+       <>
+          <h1 className="text-3xl">Hello</h1>
+
+          <Button type="primary">Hello</Button>
+       </>
+    );
 }
