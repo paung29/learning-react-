@@ -11,9 +11,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
     return (
        <>
-          <h1 className="text-3xl">Hello</h1>
-
-          <Button type="primary">Hello</Button>
+          Hello Ant Design And React Router
        </>
     );
 }
