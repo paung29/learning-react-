@@ -5,10 +5,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigate,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { useState } from "react";
+import { Menu, type MenuProps } from "antd";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,7 +45,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+
+  const navigate = useNavigate()
+
+  const [selected, setSelected] = useState('/')
+  const onMenuSelect : MenuProps['onClick'] = e => {
+    setSelected(e.key)
+    navigate(e.key)
+  }
+
+  return (
+    <>
+      <nav className="shadow">
+        <Menu items={APP_MENU_DATA} selectedKeys={[selected]} mode="horizontal"
+         className="!px-8" onClick={onMenuSelect}/>
+      </nav>
+
+      <main className="px-12 py-8" >
+        <Outlet />
+      </main>
+
+    </>
+  )
+
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -73,3 +98,17 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+
+type MenuItem = Required<MenuProps>['items'][number]
+
+const APP_MENU_DATA : MenuItem[] = [
+  {key : "/", label: "Single Menu"},
+  {key : "/nested/nested1", label: "Sub Routing"},
+  {key : "menu-3", label: "Using Parameter", children : [
+    {type : 'item', label : 'Path Parameter', key : '/group/path-variable'},
+    {type : 'item', label : 'Query Parameter', key : '/group/query-param'},
+  ]},
+  {key : "menu-4", label: "Actions"},
+  {key : "menu-5", label: "Data Loading"}
+  
+]
