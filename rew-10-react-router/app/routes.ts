@@ -4,8 +4,11 @@ export default [
     index("routes/home.tsx"),
 
     ...prefix('group', [
-        route('path-variable', "routes/group/using-path-variable.tsx"),
-        route('query-param', "routes/group/using-query-params.tsx"),
+        route('path-variable', "routes/group/using_path_variable.tsx", [
+            index("routes/group/using_path_variable_index.tsx"),
+            route( ":id", "routes/group/using_path_variable_result.tsx")
+        ]),
+        route('query-param', "routes/group/using_query_params.tsx"),
     ]),
 
     route("nested", "routes/nested/_layout.tsx", [
