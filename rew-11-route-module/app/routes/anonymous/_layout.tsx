@@ -1,34 +1,17 @@
 import { Home } from "lucide-react"
 import { Link, NavLink, Outlet } from "react-router"
+import AppAnonymousNav from "~/components/custom/app-anynomous-nav"
 
 export default function Layout() {
     return(
         <div>
-            <Navbar />
+            <div className="shadow-md">
+                <AppAnonymousNav />
+            </div>
 
-            <main>
+            <main className="px-8 py-4">
                 <Outlet/>
             </main>
         </div>
-    )
-}
-
-function Navbar() {
-    return(
-        <nav className="flex px-8 py-4 justify-between">
-            <Link to="/"> <Home/> Home</Link>
-
-            <ul>
-                <li>
-                    <NavLink to="/about">About us</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/contact">Contact</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/signin">Sign In</NavLink>
-                </li>
-            </ul>
-        </nav>
     )
 }
