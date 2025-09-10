@@ -119,4 +119,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .topMenu a {
+    @apply inline-block p-4 hover:bg-gray-300
+  }
 }
