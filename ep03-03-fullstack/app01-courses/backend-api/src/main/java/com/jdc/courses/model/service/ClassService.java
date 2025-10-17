@@ -18,7 +18,9 @@ import com.jdc.courses.api.output.ClassListItem;
 import com.jdc.courses.api.output.ModificationResult;
 import com.jdc.courses.api.output.PageResult;
 import com.jdc.courses.api.output.Schedule;
+import com.jdc.courses.exception.BusinessException;
 import com.jdc.courses.model.entity.Classes;
+import com.jdc.courses.model.entity.Classes_;
 import com.jdc.courses.model.repo.ClassesRepo;
 import com.jdc.courses.model.repo.CourseRepo;
 
@@ -48,15 +50,25 @@ public class ClassService {
 			return cq;
 		};
 		
+		Function<CriteriaBuilder, CriteriaQuery<Long>> countFun = cb -> {
+			var cq = cb.createQuery(Long.class);
+			var root = cq.from(Classes.class);
+			
+			cq.select(cb.count(root.get(Classes_.id)));
+			cq.where(search.where(cb, root));
+			
+			return cq;
+		};
 		
-		return null;
+		
+		return classesRepo.search(queryFun, countFun, page, size);
 	}
 
 	public ClassDetails findById(int id) {
 		
 		return classesRepo.findById(id)
 				.map(a -> ClassDetails.from(a, this::convert))
-				.orElseThrow();
+				.orElseThrow(() -> new BusinessException("There is no class with id %s".formatted(id)));
 	}
 
 	@Transactional
@@ -64,7 +76,8 @@ public class ClassService {
 		
 		try {
 			// Find Course
-			var course = courseRepo.findById(form.courseId()).orElseThrow();
+			var course = courseRepo.findById(form.courseId())
+					.orElseThrow(() -> new BusinessException("There is no course with id %s".formatted(form.courseId())));
 			
 			// Convert Schedule List to JSON String
 			var schedules = objectMapper.writeValueAsString(form.schedules());
@@ -88,9 +101,11 @@ public class ClassService {
 	public ModificationResult<Integer> update(int id, ClassForm form) {
 		
 		try {
-			var entity = classesRepo.findById(id).orElseThrow();
+			var entity = classesRepo.findById(id)
+					.orElseThrow(() -> new BusinessException("There is no class with id %s".formatted(id)));
 			// Find Course
-			var course = courseRepo.findById(form.courseId()).orElseThrow();
+			var course = courseRepo.findById(form.courseId())
+					.orElseThrow(() -> new BusinessException("There is no course with id %s".formatted(form.courseId())));
 			entity.setCourse(course);
 			
 			// Convert Schedule List to JSON String
@@ -99,6 +114,7 @@ public class ClassService {
 			
 			entity.setStartDate(form.startDate());
 			entity.setType(form.classType());
+			entity.setMonths(form.months());
 			entity.setRemark(form.remark());
 			
 			entity.setUpdatedAt(LocalDateTime.now());

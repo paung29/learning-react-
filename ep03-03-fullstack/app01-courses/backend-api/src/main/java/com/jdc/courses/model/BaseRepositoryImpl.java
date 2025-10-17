@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import com.jdc.courses.api.output.PageInfo;
@@ -15,10 +16,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 
 public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 	
-	private EntityManager entityManager;
 
-	public BaseRepositoryImpl(Class<T> domainClass, EntityManager entityManager) {
-		super(domainClass, entityManager);
+	private EntityManager entityManager;
+	
+	public BaseRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+		super(entityInformation, entityManager);
 		this.entityManager = entityManager;
 	}
 
