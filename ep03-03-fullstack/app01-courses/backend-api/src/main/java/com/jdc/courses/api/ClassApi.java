@@ -34,7 +34,7 @@ public class ClassApi {
 		return service.search(search, page, size);
 	}
 
-	@GetMapping({"id"})
+	@GetMapping("{id}")
 	ClassDetails findById(@PathVariable int id) {
 		return service.findById(id);
 	}
@@ -44,7 +44,7 @@ public class ClassApi {
 		return service.create(form);
 	}
 	
-	@PutMapping({"id"})
+	@PutMapping("{id}")
 	ModificationResult<Integer> update(@PathVariable int id,
 			@Validated @RequestBody ClassForm form) {
 		

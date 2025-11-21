@@ -31,7 +31,7 @@ public class CourseApi {
 		return service.search(search);
 	}
 	
-	@GetMapping({"id"})
+	@GetMapping("{id}")
 	CourseDetails findById(@PathVariable int id) {
 		return service.findById(id);
 	}
@@ -42,7 +42,7 @@ public class CourseApi {
 		return service.create(form);
 	}
 	
-	@PutMapping({"id"})
+	@PutMapping("{id}")
 	ModificationResult<Integer> update(@PathVariable int id,
 			@Validated @RequestBody CourseForm form) {
 		return service.update(id, form);

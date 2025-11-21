@@ -1,3 +1,5 @@
+'use server'
+
 import { request } from "../base-client";
 import { ClassesDetails, ClassesForm, ClassesSearch, ClassListItem, PageResult } from "../types";
 import { POST_CONFIG, PUT_CONFIG, queryString } from "../utils";
